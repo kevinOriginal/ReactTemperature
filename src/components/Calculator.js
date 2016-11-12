@@ -19,3 +19,5 @@ class Calculator extends react.Component {
     )
   }
 }
+
+export default Calculator;

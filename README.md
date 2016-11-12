@@ -16,4 +16,4 @@
 
 2. 섭씨 뿐만 아니라 화씨(fahrenheit)또한 입력받기 위해서는 온도를 입력받는 `TemperatureInput` 이라는 component를 만드는 편이 속시원할 것이다.
 
-`TemperatureInput`은 화씨인지 섭씨인지 알기 위해서  
+`TemperatureInput`은 화씨인지 섭씨인지 알기 위해서 이를 위한 구분자를 state에 넣어주면 될듯 하다. `TemperatureInput`은 따라서 **class component** 가 되어야 할 것이다.

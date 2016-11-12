@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-function boilOrNot(props) {
+export default function boilOrNot(props) {
   if (props.celcisus >= 100) {
     return (
       <p>보글보글 물이 끓습니다!.</p>;
