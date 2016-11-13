@@ -14,12 +14,14 @@
 `git checkout step01` 과 같이 완성된 코드를 봐가면서 코드를 짜면 된다.
 하지만 본인이 짠 코드랑 크게 다를 수 있으므로 오히려 안보고 짜는 것이 쉬울 수도 있겠다.
 
+
 * 완성형의 Hierarchy 는 다음과 같다. (꼭 이래야된다는 것은 아님)
-- components
-  - BoilOrNot.js
-  - Calculator.js
-  - TemperatureInput.js
-- App.js
+
+  - components
+    - BoilOrNot.js
+    - Calculator.js
+    - TemperatureInput.js
+  - App.js
 
 `Calculator` 안에 `TemperatureInput` 컴포넌트가 화씨 섭씨용 두개 들어가며, 그 밑에는 끓는지 아닌지를 나타내주기 위한 `BoilOrNot`컴포넌트가 하나 들어간다.
 
