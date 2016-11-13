@@ -1,5 +1,10 @@
 # Temperature Calcuator
 
+## Pre Javascipt!
+다음은 이번 만드는 과정에서 쓰이는 메써드 들이다. 참고하자.
+* `parseFloat(value)` : parses a string and returns a floating point number.  즉 입력값을 파씽하여 숫자로 벼환.
+* `value.toString` : converts a number to a string. 숫자를 string으로!
+
 
 ## 우리가 만들것?
 * React 만으로 입력받은 온도를 화씨<=> 섭씨 변환하며 물이 끓는 온도인지 아닌지를 판단하는 간단한 계산기 만든다.
@@ -47,11 +52,14 @@
  입력받기 위해서는 온도를 입력받는 `< TemperatureInput />` 이라는 component를 따로 만드는 편이 속시원할 것이다.
 
  > `< TemperatureInput />`은 화씨인지 섭씨인지 알기 위해서 이를 위한 구분자를 render()에 새로운 object로 넣어주면 될듯 하다. 다음과 같이 말이다.
-> ```const scaleNames = {
+> ```
+const scaleNames = {
   c : 'Celsius',
   f : 'Fahrenheit'
-  }```
->`< TemperatureInput />`은 input을 입력받아 자신의 state에 저장을 해야 하므로 **class component** 가 되어야 할 것이다.
+  }
+ ```
+
+> `< TemperatureInput />`은 input을 입력받아 자신의 state에 저장을 해야 하므로 **class component** 가 되어야 할 것이다.
 이제 `<Calculator />` 안에있던 input 부분과 value를 저장했던 state 대신에 `< TemperatureInput />` 을 두개 넣어주는 리팩토링을 해보자. 각각의 property는 "c" 와 "f"로 해주면 되겠다.
 
  >여기까지 하면 View 에는 온도를 입력하는 창이 두개가 있고 각각 섭씨와 화씨 온도를 입력받으라고 하며 100도가 넘으면 물이 끓는다고 나온다. 하지만 문제점이 있다. 우리가 만들고싶은 것은 사실 두 온도를 입력했을때 서로 변환까지 해주면서 물이 끓는지 안끓는지를 나타내줘야한다.
@@ -99,27 +107,55 @@ React class 내부에 함수를 짤 때는 function을 안붙여줘도 된다는
  ```
  <TemperatureInput
    scale="c"
-   value={celsius}
-   onChange={(e) => {
-     this.setState({value: e, scale: 'c'})
-     }
-   }
+    value={celsius}
+    onChange={(e) => {
+      this.setState({value: e, scale: 'c'})
+      }
+    }
  />
  ```
 
  - 이제 위에 짠 변환함수를 바탕으로 `Calculator` 의 `state` 에 따라서 알맞게 변환하여 `celsius` 와 `fahrenheit`라는 수치에 대입을 해주자. 그러기 위해선는 render 부분에 다음과 같이 각 변수에 state.scale 에 따라서 변화해준 후 적절한 값을 넣어주자.
  ```
+ const value = this.state.value; // 코드가 너무 더러워져서 어쩔수 없이 상수에다가 calculator 의 state 중 value의 값을 넣음
+
  const celsius = this.state.scale === 'f' ? this.Converter(value, this.toCelsius) : value;
 
  const fahrenheit = this.state.scale === 'c' ? this.Converter(value, this.toFahrenheit) : value;
  // 각 변수에 state의 scale 에 따라서 변환할 필요가 잇으면 Converter 함수를 써서 변환해라
 
  ```
-- 이제 비로소 `<TemperatureInput />` 내부에 있는 value prop에 celcisus나 fahrenheit와 같은 변수들이 왜 들어가는 지 알 수 있다.
+ - 이제 비로소 `<TemperatureInput />` 내부에 있는 value prop에 celcisus나 fahrenheit와 같은 변수들이 왜 들어가는 지 알 수 있다.
 
 
-4. **완성단계 2** 
+4. **완성단계 2**
 
   - `<BoilOrNot />` 컴포넌트를 `emperatureInput`에 넣어줬었다면 이제 다시 `Calculator`로 빼주자. 굳이 귀찮게 F로 계산하지 말고 우리는 그대로 C로 계산을 하자.
+
+  - 이제 `<TemperatureInput />` 을 리팩토링 할 차례이다. 2단계에서는 모든 값을 `<TemperatureInput />` 내에서 처리해줬다면 이제는 우리가  `<TemperatureInput />` 에서 입력받은 값을 parent component 인 `<Calculator />`로 보내줘야 한다. textfield의 value 또한 받아온 props를 바탕으로 입력을 해주어야 한다. 따라서 다음과 같은 코드를 작성하면 되겠다.
+  ```
+  render() {
+    const scale = this.props.scale; //Calculator에서 prop으로 받아온 scale 을 변수 scale 에 입력시킴.
+    const value = this.props.value;
+
+    const scaleNames = {
+      c : 'Celsius',
+      f : 'Fahrenheit'
+    }
+
+    return (
+      <fieldset>
+        <legend>온도를 {scaleNames[scale]}로 입력하세요: </legend>
+        <input
+          value = {this.props.value}
+          onChange = {(e)=>{
+            this.props.onChange(e.target.value);
+            this.setState({value: value})
+          }}
+        />
+      </fieldset>
+    );
+  }
+  ```
 
   - 아직 쓰는 중입니다!
