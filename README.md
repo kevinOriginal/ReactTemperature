@@ -56,11 +56,11 @@
   const scaleNames = {
     c : 'Celsius',
     f : 'Fahrenheit'
-    }
+  }
  ```
 
-> `< TemperatureInput />`은 input을 입력받아 자신의 state에 저장을 해야 하므로 **class component** 가 되어야 할 것이다.
-이제 `<Calculator />` 안에있던 input 부분과 value를 저장했던 state 대신에 `< TemperatureInput />` 을 두개 넣어주는 리팩토링을 해보자. 각각의 property는 "c" 와 "f"로 해주면 되겠다.
+ > `< TemperatureInput />`은 input을 입력받아 자신의 state에 저장을 해야 하므로 **class component** 가 되어야 할 것이다.
+ 이제 `<Calculator />` 안에있던 input 부분과 value를 저장했던 state 대신에 `< TemperatureInput />` 을 두개 넣어주는 리팩토링을 해보자. 각각의 property는 "c" 와 "f"로 해주면 되겠다.
 
  >여기까지 하면 View 에는 온도를 입력하는 창이 두개가 있고 각각 섭씨와 화씨 온도를 입력받으라고 하며 100도가 넘으면 물이 끓는다고 나온다. 하지만 문제점이 있다. 우리가 만들고싶은 것은 사실 두 온도를 입력했을때 서로 변환까지 해주면서 물이 끓는지 안끓는지를 나타내줘야한다. 즉 **두 값을 연결** 해줘야 하며, C/F 변환 함수를 또한 만들어 줄 필요가 있다.
 
