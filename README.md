@@ -8,11 +8,20 @@
   - 중수 : Project Hierarchy 와 이 문서 밑에 설명되어 있는 설계 진행 단계들을 보면서 코드를 짜고 리팩토링한다.
   - 늅늅 : git checkout을 해가면서 답안의 코드를 조금씩 보며 과제를 한다.
 
-* Project Hierarchy 는 다음과 같다.
+* 총 3단계로 나누어져 있으며 step01 step02 step03 이 있다.
+`git checkout step01` 과 같이 완성된 코드를 봐가면서 코드를 짜면 된다.
+하지만 본인이 짠 코드랑 크게 다를 수 있으므로 오히려 안보고 짜는 것이 쉬울 수도 있겠다.
+
+* 완성형의 Hierarchy 는 다음과 같다. (꼭 이래야된다는 것은 아님)
+
+components
+  BoilOrNot.js
+  Calculator.js
+  TemperatureInput.js
+
 
 
 * 만들때는 다음과 같은 순서를 따른다
-
 
 1. BoilOrNot 과 Calculator Component 를 먼저 만든다. 섭씨(celcisus)온도를 입력받고 이가 끓는지 안끓는지 나타내주는 앱을 먼저 만들어 보자.
 
@@ -54,4 +63,26 @@ const scaleNames = {
    }
 ```
 
-그다음은 `Calculator` 에 
+그다음은 `Calculator` class 안에 변환함수를 생성해주는 게 일이다.
+React class 내부에 함수를 짤 때는 function을 안붙여더 된다는 사실을 잊지 말자.
+```
+toCelsius(f) {
+  return (f - 32) * 5 / 9 ;
+}
+
+toFahrenheit(c) {
+  return (c * 9 / 5) + 32 ;
+}
+
+Converter(value, convert) {
+  const input = parseFloat(value);
+  if (Number.isNaN(input)) {
+    return '';
+  }
+  const output = convert(input);
+  const rounded = Math.round(output*1000) / 1000;
+  return rounded.toString();
+}
+```
+
+여기까지 되었다면 이제 각각의 `TemperatureInput`의 input 변화(onChange)에 따라서 `Calculator`의 state 를 변화시키는 것이다.
