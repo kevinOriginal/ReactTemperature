@@ -1,20 +1,23 @@
 import React from 'react';
-import BoilOrNot from './BoilOrNot/';
+import BoilOrNot from './BoilOrNot';
 
-class Calculator extends react.Component {
+class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {tempValue: ''};
+    this.state = {value: ''};
   }
 
   render() {
+
     return (
       <fieldset>
-        <legend>온도를 섭씨(celcisus)로 입력하세요: </legend>
+        <legend>온도를 섭씨(celsius)로 입력하세요: </legend>
         <input
-          value = {this.state.tempValue}
-          onChange = {(e)=>this.setState({tempValue: e.target.valye})}
+          value = {this.state.value}
+          onChange = {(e)=>this.setState({value: e.target.value})}
           />
+          <BoilOrNot
+            celsius = {parseFloat(this.state.value)} />
       </fieldset>
     )
   }
